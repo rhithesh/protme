@@ -41,8 +41,11 @@ export default function Home() {
                   className="w-full border-2 border-black px-2 py-1 rounded"
                 />
               </div>
+              <div className=" underline-offset-1 underline text-right text-lg font-medium text-black hover:text-yellow-400 transition cursor-pointer">
+                <p>Register</p>
+              </div>
               <button className="w-full bg-yellow-400 border-2 border-black text-lg font-semibold py-2 rounded hover:bg-yellow-300 transition">
-                Register
+                Loginn
               </button>
             </div>
           </div>
