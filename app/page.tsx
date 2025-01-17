@@ -1,12 +1,13 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
 export default function Home() {
   const [details, setDetails] = useState({
     email: "",
     password: "",
   });
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-200 via-orange-100 to-red-200 font-retro">
@@ -41,7 +42,9 @@ export default function Home() {
                   className="w-full border-2 border-black px-2 py-1 rounded"
                 />
               </div>
-              <div className=" underline-offset-1 underline text-right text-lg font-medium text-black hover:text-yellow-400 transition cursor-pointer">
+              <div onClick={()=>{
+                router.push("/register")
+              }} className=" underline-offset-1 underline text-right text-lg font-medium text-black hover:text-yellow-400 transition cursor-pointer">
                 <p>Register</p>
               </div>
               <button className="w-full bg-yellow-400 border-2 border-black text-lg font-semibold py-2 rounded hover:bg-yellow-300 transition">
