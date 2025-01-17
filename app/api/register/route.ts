@@ -5,18 +5,16 @@ import { cookies } from 'next/headers'
 import { Resend } from 'resend';
 import Welcome from "./Welcome"
 const resend = new Resend("re_T9wrKr2S_4CZRZTNf5hMfrPijbifxDfVZ");
+import prisma from "@/lib/db";
 
 
 
 export async  function POST(req, res) {
     const body =await req.json()
-    const prisma = new PrismaClient();
-
-    
-const min = 100; // Replace with your desired minimum value
-const max = 200; // Replace with your desired maximum value
-const randomInteger = Math.floor(Math.random() * (max - min + 1)) + min;
-console.log(randomInteger);
+    const min = 100; // Replace with your desired minimum value
+    const max = 200; // Replace with your desired maximum value
+    const randomInteger = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log(randomInteger);
 
 try{
 
@@ -56,4 +54,37 @@ try{
 
 
    return NextResponse.json({ message: "Hello World" });
+}
+
+
+export async function PUT(req, res) {
+
+    const body =await req.json()
+    const data= await prisma.user.findUnique({
+        where:{
+            email:body.email
+        }
+    })
+    if ( data?.verificationCose==body.verificationCose){
+        await prisma.user.update({
+            where: {
+                email:body.email, // Field used to check if the record exists
+              },
+            data: {
+                verified: true,
+            },
+        })
+
+        return NextResponse.json({ message: "Hello World" });
+    }
+    const user = await prisma.user.update({
+        where: {
+            email:body.email, // Field used to check if the record exists
+          },
+        data: {
+            verified: true,
+        },
+    });
+
+    return NextResponse.json({ message: "Hello World" });
 }
