@@ -17,9 +17,6 @@ export  async function POST(req, res) {
         }
     })
 
-    console.log(da,"Helllo")
-
-    // Perform upsert operation
     const upsertedData = await prisma.data.upsert({
       where: {
         userId:da?.id, // Ensure uniqueness by userId
@@ -47,10 +44,10 @@ export  async function POST(req, res) {
     console.error("Error during upsert operation:", error);
 
     // Handle specific errors
-    if (error.code === "P2002") {
+    if (error?.code === "P2002") {
        NextResponse.json({ error: "Duplicate userId detected." });
     }
-    if (error.code === "P2025") {
+    if (error?.code === "P2025") {
        NextResponse.json({ error: "Related user not found." });
     }
 

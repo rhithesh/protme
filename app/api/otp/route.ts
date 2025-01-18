@@ -1,16 +1,19 @@
 import prisma from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 
-export default function POST(req,res){
-
+export async function POST(req:NextRequest){
+    
     const body =await req.json()
-    const randomInteger = Math.floor(100000 + Math.random() * 900000)
+    const min = 100; 
+    const max = 200;
+    const randomInteger = Math.floor(Math.random() * (max - min + 1)) + min;
 
     prisma.user.update({
         where: {
             email: body.email
         },
         data: {
-            verificationCose: randomInteger
+            verificationCode: randomInteger
         }
     })
 

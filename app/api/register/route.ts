@@ -9,8 +9,8 @@ import prisma from "@/lib/db";
 
 export async  function POST(req, res) {
     const body =await req.json()
-    const min = 100; // Replace with your desired minimum value
-    const max = 200; // Replace with your desired maximum value
+    const min = 100; 
+    const max = 200;
     const randomInteger = Math.floor(Math.random() * (max - min + 1)) + min;
     console.log(randomInteger);
 
