@@ -1,5 +1,5 @@
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Resend } from 'resend';
 import Welcome from "./Welcome"
 const resend = new Resend("re_T9wrKr2S_4CZRZTNf5hMfrPijbifxDfVZ");
@@ -7,7 +7,7 @@ import prisma from "@/lib/db";
 
 
 
-export async  function POST(req, res) {
+export async  function POST(req:NextRequest) {
     const body =await req.json()
     const min = 100; 
     const max = 200;
@@ -30,8 +30,8 @@ try{
 
   
 
-  
-    const user1 = await prisma.user.create({
+    try{
+    const user = await prisma.user.create({
         data: {
             email: body.email,
             password: body.password,
@@ -42,15 +42,19 @@ try{
             verificationCode:randomInteger,
 
         },
-    });
+    });}
+    catch(error){
+        console.log(error)
+        return NextResponse.json({ message: "failed" },{status: 400});
+    }
 
 
 
-   return NextResponse.json({ message: "Hello World" });
+   return NextResponse.json({ message: "Created user sucessfully" });
 }
 
 
-export async function PUT(req, res) {
+export async function PUT(req:NextRequest) {
 
     const body =await req.json()
     const data= await prisma.user.findUnique({
