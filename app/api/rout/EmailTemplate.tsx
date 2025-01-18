@@ -1,13 +1,15 @@
-import React from "react";
+import * as React from "react";
 
-interface WelcomeProps {
-    greeting: string;
+interface EmailTemplateProps {
+  firstName: string;
 }
 
-export const Welcome: React.FC<Readonly<WelcomeProps>> = ({ greeting }) => (
-    <>
-        <h1>{greeting}</h1>
-    </>
+export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
+  firstName,
+}) => (
+  <div>
+    <h1>Welcome,Louda keball {firstName}!</h1>
+  </div>
 );
 
-export default Welcome;
+export default EmailTemplate;

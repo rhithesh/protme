@@ -1,7 +1,5 @@
 
 import { NextResponse } from "next/server";
-import { PrismaClient } from '@prisma/client';
-import { cookies } from 'next/headers'
 import { Resend } from 'resend';
 import Welcome from "./Welcome"
 const resend = new Resend("re_T9wrKr2S_4CZRZTNf5hMfrPijbifxDfVZ");
@@ -17,11 +15,9 @@ export async  function POST(req, res) {
     console.log(randomInteger);
 
 try{
-
-
  const {data,error}= await resend.emails.send({
       from: 'Hithesh <onboarding@hithesh.live>',
-      to: [body.email],
+      to: ["rhithesh1947@gmail.com"],
       subject: `Hello ${body.email} ${randomInteger} `,
       react: Welcome() as React.ReactElement,
     });
@@ -31,24 +27,21 @@ try{
 }
     //const cookieStore = await cookies()
     //cookieStore.set('name', 'lee')
+
   
-    const user = await prisma.user.upsert({
-        where: {
-            email:"rhithesh1947@gmail.com", // Field used to check if the record exists
-          },
-        create: {
+
+  
+    const user1 = await prisma.user.create({
+        data: {
             email: body.email,
             password: body.password,
             name: body.name,
             createdAt: new Date(),
             updatedAt: new Date(),
             verified:false,
-            verificationCose:randomInteger,
+            verificationCode:randomInteger,
 
         },
-        update:{
-
-        }
     });
 
 
@@ -65,7 +58,7 @@ export async function PUT(req, res) {
             email:body.email
         }
     })
-    if ( data?.verificationCose==body.verificationCose){
+    if ( data?.verificationCode==body.verificationCode){
         await prisma.user.update({
             where: {
                 email:body.email, // Field used to check if the record exists
@@ -85,6 +78,10 @@ export async function PUT(req, res) {
             verified: true,
         },
     });
+    
 
-    return NextResponse.json({ message: "Hello World" });
+    return NextResponse.json({ message: "failed" },{
+        status: 400,
+    });
 }
+
