@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 export default function Home() {
   const [details, setDetails] = useState({
     email: "",
@@ -14,6 +15,7 @@ export default function Home() {
       method:"POST",
       body:JSON.stringify(details)
     }).then((res)=>res.json()).then((data)=>{
+      toast.success("Logged In Redirecting to Dashboard")
       if(data.message){
         router.push("/dashboard")
       }
