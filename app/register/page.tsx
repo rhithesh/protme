@@ -20,6 +20,7 @@ export default function Register() {
       body: JSON.stringify(details),
     })
     setopen(true)
+    console.log(data)
 
   }
   catch (error){
@@ -37,6 +38,7 @@ const otpVerify= async ()=>{
       body: JSON.stringify({
         email:details.email,verificationCode:otp}),
     })
+    console.log(data)
     toast.success("Otp Verified")
     setopen(true)
 

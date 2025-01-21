@@ -19,7 +19,7 @@ export async  function POST(req:NextRequest) {
 try{
  const {data,error}= await resend.emails.send({
       from: 'Hithesh <onboarding@hithesh.live>',
-      to: ["rhithesh1947@gmail.com"],
+      to: "rhithesh1947@gmail.com",
       subject: `Hello ${body.email} ${randomInteger} `,
       react: Welcome() as React.ReactElement,
     });

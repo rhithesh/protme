@@ -2,7 +2,7 @@ import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export  async function POST(req:NextRequest, res) {
+export  async function POST(req:NextRequest) {
   const cookieStore = await cookies();
   try {
     // Parse the request body
@@ -16,11 +16,6 @@ export  async function POST(req:NextRequest, res) {
     if (!userId || !name || !college || !role || !project) {
       return NextResponse.json({ error: "All fields are required." });
     }
-    const da =await prisma.user.findUnique({
-        where:{
-            email:email
-        }
-    })
     console.log(userId, name, college, role, project ,email,"My name is Hithesh")
 
     const upsertedData = await prisma.data.upsert({

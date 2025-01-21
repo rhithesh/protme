@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 
 
-export async function GET(req:NextRequest) {
+export async function GET() {
     const cookieStore = await cookies()
     const id = cookieStore.get("Protme-auth")
     if (!id) {
