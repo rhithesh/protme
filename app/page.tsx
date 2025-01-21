@@ -9,6 +9,18 @@ export default function Home() {
   });
   const router = useRouter();
 
+  const login=()=>{
+    fetch("/api/login",{
+      method:"POST",
+      body:JSON.stringify(details)
+    }).then((res)=>res.json()).then((data)=>{
+      if(data.message){
+        router.push("/dashboard")
+      }
+    })
+
+  }
+
   return (
     <div className="min-h-screen  font-retro">
       <header className="fixed w-[400px] mt-1 rounded-xl border-b-4 border-black bg-yellow-400  px-6 fixed py-4 flex justify-center space-x-10 text-lg font-bold uppercase text-black">
@@ -47,8 +59,10 @@ export default function Home() {
               }} className=" underline-offset-1 underline text-right text-lg font-medium text-black hover:text-yellow-400 transition cursor-pointer">
                 <p>Register</p>
               </div>
-              <button className="w-full bg-yellow-400 border-2 border-black text-lg font-semibold py-2 rounded hover:bg-yellow-300 transition">
-                Loginn
+              <button onClick={()=>{
+                login()
+              }} className="w-full bg-yellow-400 border-2 border-black text-lg font-semibold py-2 rounded hover:bg-yellow-300 transition">
+                Login
               </button>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export  async function POST(req, res) {
+export  async function POST(req:NextRequest, res) {
   try {
     // Parse the request body
     const body = await req.json();
@@ -42,14 +42,7 @@ export  async function POST(req, res) {
      return NextResponse.json(upsertedData);
   } catch (error) {
     console.error("Error during upsert operation:", error);
-
-    // Handle specific errors
-    if (error?.code === "P2002") {
-       NextResponse.json({ error: "Duplicate userId detected." });
-    }
-    if (error?.code === "P2025") {
-       NextResponse.json({ error: "Related user not found." });
-    }
+    
 
     // Handle other unexpected errors
     return  NextResponse.json({ error: "An unexpected error occurred." });
