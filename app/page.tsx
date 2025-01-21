@@ -10,21 +10,21 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-200 via-orange-100 to-red-200 font-retro">
-      <header className="fixed w-full border-b-4 border-black bg-yellow-400 shadow-xl px-6 py-4 flex justify-center space-x-10 text-lg font-bold uppercase text-black">
-        <h1 className="hover:text-orange-600 transition">About Us</h1>
-        <h1 className="hover:text-orange-600 transition">YouTube Video</h1>
-        <h1 className="hover:text-orange-600 transition">Get Started</h1>
+    <div className="min-h-screen  font-retro">
+      <header className="fixed w-[400px] mt-1 rounded-xl border-b-4 border-black bg-yellow-400  px-6 fixed py-4 flex justify-center space-x-10 text-lg font-bold uppercase text-black">
+        <h1 className="hover:text-orange-600 hover:cursor-pointer transition">About Us</h1>
+        <h1 className="hover:text-orange-600  hover:cursor-pointer transition">YouTube Video</h1>
+        <h1 className="hover:text-orange-600 hover:cursor-pointer transition">Get Started</h1>
       </header>
 
-      <main className="pt-24">
+      <main className="pt-10 ">
         {/* Landing Section */}
-        <div className="flex border-4 border-black mx-8 mt-8 rounded-lg overflow-hidden shadow-lg">
-          <div className="basis-1/2 bg-yellow-300 flex justify-center items-center p-4">
-            <Image src="/image.png" height={400} width={400} alt="Landing Image" className="rounded-lg shadow" />
+        <div className="flex h-[100vh]  mx-8 mt-8 rounded-lg overflow-hidden ">
+          <div className="basis-1/2  flex justify-center items-center p-4">
+            <Image src="/image.png" height={400} width={400} alt="Landing Image" className="rounded-lg " />
           </div>
-          <div className="basis-1/2 bg-yellow-500 p-8 flex justify-center items-center border-l-4 border-black">
-            <div className="w-80 p-6 bg-white border-4 border-black rounded-lg shadow-lg">
+          <div className="basis-1/2  p-8 flex justify-center items-center ">
+            <div className="w-80 p-6 bg-white border-4 border-black rounded-lg ">
               <h1 className="text-2xl font-bold mb-6 text-center">Create Now</h1>
               <div className="mb-4">
                 <label className="block text-lg font-medium">Email</label>

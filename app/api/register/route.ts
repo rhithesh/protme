@@ -12,7 +12,7 @@ export async  function POST(req:NextRequest) {
     const min = 100; 
     const max = 200;
     const randomInteger = Math.floor(Math.random() * (max - min + 1)) + min;
-    console.log(randomInteger);
+    console.log(randomInteger,"Hithesh");
 
 try{
  const {data,error}= await resend.emails.send({
@@ -27,30 +27,31 @@ try{
 }
     //const cookieStore = await cookies()
     //cookieStore.set('name', 'lee')
+    console.log(body.email)
 
   
 
     try{
-    const user = await prisma.user.create({
+    console.log(await prisma.user.findMany({}))
+    await prisma.user.create({
         data: {
-            email: body.email,
+            email:body.email,
             password: body.password,
             name: body.name,
             createdAt: new Date(),
             updatedAt: new Date(),
             verified:false,
-            verificationCode:randomInteger,
+            verificationCode:123,
 
         },
-    });}
-    catch(error){
-        console.log(error)
-        return NextResponse.json({ message: "failed" },{status: 400});
+    });
+  
+}catch(error){
+        return NextResponse.json({ error:error,message: "failed",user:"User Aldready Created" },{status: 400});
     }
 
 
-
-   return NextResponse.json({ message: "Created user sucessfully" });
+   return NextResponse.json({ message: "User Created enter Otp to proceed" });
 }
 
 
@@ -72,8 +73,7 @@ export async function PUT(req:NextRequest) {
             },
         })
 
-        return NextResponse.json({ message: "Hello World" });
-    }
+    
     const user = await prisma.user.update({
         where: {
             email:body.email, // Field used to check if the record exists
@@ -82,6 +82,9 @@ export async function PUT(req:NextRequest) {
             verified: true,
         },
     });
+    return NextResponse.json({ message: "Otp verified sucessfully" },{status: 200});
+
+}
     
 
     return NextResponse.json({ message: "failed" },{

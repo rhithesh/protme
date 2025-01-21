@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Register() {
   const [details, setDetails] = useState({
@@ -7,14 +8,49 @@ export default function Register() {
     email: "",
     password: "",
   });
+  const [otp, setOtp] = useState(
+     ""
+  );
+  const [open,setopen]=useState<boolean>(false)
 
-  const handleRegister = () => {
-    // Handle the registration logic here
-    console.log(details);
-  };
+  const handleRegister =async () => {
+  try{
+    const data=await fetch('/api/register', {
+      method: 'POST',
+      body: JSON.stringify(details),
+    })
+    setopen(true)
+
+  }
+  catch (error){
+    
+    console.log(error)
+
+  }
+
+}
+
+const otpVerify= async ()=>{
+  try{
+    const data=await fetch('/api/register', {
+      method: 'PUT',
+      body: JSON.stringify({
+        email:details.email,verificationCode:otp}),
+    })
+    toast.success("Otp Verified")
+    setopen(true)
+
+  }
+  catch (error){
+    toast.error("Otp Not Verified")
+    
+    console.log(error)
+
+  }
+}
 
   return (
-    <div className=" h-screen bg-yellow-500 p-8 flex justify-center items-center border-l-4 border-black">
+    <div className=" h-screen  p-8 flex justify-center items-center border-l-4 border-black">
       <div className="w-80 p-6 bg-white border-4 border-black rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-center">Create Now</h1>
 
@@ -51,12 +87,30 @@ export default function Register() {
           />
         </div>
 
+        { open ?(
+          <input
+          type="number"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          className="w-full border-2 border-black px-2 py-1 rounded"
+        />
+        ):null
+
+        }
+
         {/* Register Button */}
         <button
-          onClick={handleRegister}
+          onClick={()=>{
+            if(!open){
+            handleRegister()
+            }else{
+              otpVerify()
+            }
+          }}
           className="w-full bg-yellow-400 border-2 border-black text-lg font-semibold py-2 rounded hover:bg-yellow-300 transition"
         >
-          Register
+         { open ?  
+         "Verfy": "Register"}
         </button>
 
         {/* Login Link */}
