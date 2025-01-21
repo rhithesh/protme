@@ -4,6 +4,8 @@ import { Resend } from 'resend';
 import Welcome from "./Welcome"
 const resend = new Resend("re_T9wrKr2S_4CZRZTNf5hMfrPijbifxDfVZ");
 import prisma from "@/lib/db";
+import { cookies } from 'next/headers'
+
 
 
 
@@ -56,6 +58,7 @@ try{
 
 
 export async function PUT(req:NextRequest) {
+    const cookieStore = await cookies()
 
     const body =await req.json()
     const data= await prisma.user.findUnique({
@@ -73,15 +76,11 @@ export async function PUT(req:NextRequest) {
             },
         })
 
+        if (data?.id) {
+            cookieStore.set("Protme-auth", data.id);
+        }
+
     
-    const user = await prisma.user.update({
-        where: {
-            email:body.email, // Field used to check if the record exists
-          },
-        data: {
-            verified: true,
-        },
-    });
     return NextResponse.json({ message: "Otp verified sucessfully" },{status: 200});
 
 }
