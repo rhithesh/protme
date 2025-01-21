@@ -3,9 +3,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
+interface User {
+  name: string;
+  college: string;
+  role: string;
+  project: string;
+}
+
 export default function BentoGridPage() {
     const params = useParams<{ name: string }>();
-    const [isUser, setIsUser] = useState(null); // Initialize with null for safe checks
+    const [isUser, setIsUser] = useState<User|null>(null); // Initialize with null for safe checks
 
     useEffect(() => {
         if (params.name) {
