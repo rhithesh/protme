@@ -1,27 +1,26 @@
-"use client";
-import Image from "next/image";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+'use client';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 export default function Home() {
   const [details, setDetails] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const router = useRouter();
 
-  const login=()=>{
-    fetch("/api/login",{
-      method:"POST",
-      body:JSON.stringify(details)
-    }).then((res)=>res.json()).then((data)=>{
-      toast.success("Logged In Redirecting to Dashboard")
-      if(data.message){
-        router.push("/dashboard")
-      }
+  const login = () => {
+    fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify(details),
     })
-
-  }
+      .then(res => res.json())
+      .then(data => {
+        toast.success('Logged In Redirecting to Dashboard');
+        router.push('/dashboard');
+      });
+  };
 
   return (
     <div className="min-h-screen  font-retro">
@@ -35,7 +34,13 @@ export default function Home() {
         {/* Landing Section */}
         <div className="flex h-[100vh]  mx-8 mt-8 rounded-lg overflow-hidden ">
           <div className="basis-1/2  flex justify-center items-center p-4">
-            <Image src="/image.png" height={400} width={400} alt="Landing Image" className="rounded-lg " />
+            <Image
+              src="/image.png"
+              height={400}
+              width={400}
+              alt="Landing Image"
+              className="rounded-lg "
+            />
           </div>
           <div className="basis-1/2  p-8 flex justify-center items-center ">
             <div className="w-80 p-6 bg-white border-4 border-black rounded-lg ">
@@ -44,7 +49,7 @@ export default function Home() {
                 <label className="block text-lg font-medium">Email</label>
                 <input
                   type="email"
-                  onChange={(e) => setDetails({ ...details, email: e.target.value })}
+                  onChange={e => setDetails({ ...details, email: e.target.value })}
                   className="w-full border-2 border-black px-2 py-1 rounded"
                 />
               </div>
@@ -52,18 +57,25 @@ export default function Home() {
                 <label className="block text-lg font-medium">Password</label>
                 <input
                   type="password"
-                  onChange={(e) => setDetails({ ...details, password: e.target.value })}
+                  onChange={e => setDetails({ ...details, password: e.target.value })}
                   className="w-full border-2 border-black px-2 py-1 rounded"
                 />
               </div>
-              <div onClick={()=>{
-                router.push("/register")
-              }} className=" underline-offset-1 underline text-right text-lg font-medium text-black hover:text-yellow-400 transition cursor-pointer">
+              <div
+                onClick={() => {
+                  router.push('/register');
+                }}
+                className=" underline-offset-1 underline text-right text-lg font-medium text-black hover:text-yellow-400 transition cursor-pointer"
+              >
                 <p>Register</p>
               </div>
-              <button onClick={()=>{
-                login()
-              }} className="w-full bg-yellow-400 border-2 border-black text-lg font-semibold py-2 rounded hover:bg-yellow-300 transition">
+              <button
+                onClick={() => {
+                  login();
+                  console.log('clicked');
+                }}
+                className="w-full bg-yellow-400 border-2 border-black text-lg font-semibold py-2 rounded hover:bg-yellow-300 transition"
+              >
                 Login
               </button>
             </div>
@@ -73,15 +85,22 @@ export default function Home() {
         {/* Pokémon Section */}
         <div className="flex mt-12 mx-8 border-4 border-black rounded-lg overflow-hidden shadow-lg">
           <div className="basis-1/2 bg-yellow-200 flex justify-center items-center">
-            <Image src="/pokemon.png" alt="Pokemon" width={300} height={300} className="rounded-lg shadow" />
+            <Image
+              src="/pokemon.png"
+              alt="Pokemon"
+              width={300}
+              height={300}
+              className="rounded-lg shadow"
+            />
           </div>
           <div className="basis-1/2 bg-yellow-300 p-8 flex justify-center items-center">
             <p className="text-lg font-medium leading-relaxed text-center">
-              A Pokémon Passport is your ultimate trainer identity, showcasing your journey through the Pokémon world.
-              Personalize it with your name, trainer ID, region, and avatar while collecting stamps for gym badges,
-              tournaments, and special events. Track your Pokédex progress, celebrate rare catches, and build connections
-              with other trainers. Whether digital or physical, your Pokémon Passport turns your adventure into a unique
-              story worth sharing!
+              A Pokémon Passport is your ultimate trainer identity, showcasing your journey through
+              the Pokémon world. Personalize it with your name, trainer ID, region, and avatar while
+              collecting stamps for gym badges, tournaments, and special events. Track your Pokédex
+              progress, celebrate rare catches, and build connections with other trainers. Whether
+              digital or physical, your Pokémon Passport turns your adventure into a unique story
+              worth sharing!
             </p>
           </div>
         </div>
@@ -89,9 +108,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="mt-12 bg-yellow-500 border-t-4 border-black py-8">
           <div className="flex justify-between px-10">
-            <p className="text-lg font-bold">
-              My name is Hithesh, Creator of Protme &copy; 2024
-            </p>
+            <p className="text-lg font-bold">My name is Hithesh, Creator of Protme &copy; 2024</p>
             <div className="flex space-x-8">
               <div>
                 <h1 className="font-bold mb-2">Quick Links</h1>

@@ -1,6 +1,6 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 
 export default function BentoGridPage() {
   const params = useParams<{ name: string }>();
@@ -8,28 +8,27 @@ export default function BentoGridPage() {
 
   // State to store input values for each part
   const [gridContent, setGridContent] = useState({
-    part1: "I am Hithesh!!",
-    part2: "I am from BMS college of Engineering",
-    part3: "I am a developer. My projects are:",
-    project1: "NoSign :- a dontpad Clone",
-    project2: "Acme Blog:- a blogging application",
+    part1: 'I am Hithesh!!',
+    part2: 'I am from BMS college of Engineering',
+    part3: 'I am a developer. My projects are:',
+    project1: 'NoSign :- a dontpad Clone',
+    project2: 'Acme Blog:- a blogging application',
   });
 
   const handleInputChange = (key: string, value: string) => {
-    setGridContent((prev) => ({ ...prev, [key]: value }));
+    setGridContent(prev => ({ ...prev, [key]: value }));
   };
 
-  const handelsave=()=>{
-
+  const handelsave = () => {
     fetch('/api/updateData', {
       method: 'POST',
       body: JSON.stringify(gridContent),
-    }).then((res)=>res.json()).then((data)=>{
-      console.log(data)
     })
-
-
-  }
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      });
+  };
 
   useEffect(() => {
     if (params.name) {
@@ -57,11 +56,8 @@ export default function BentoGridPage() {
             <div
               className="col-span-1 text-black text-2xl border-2 rounded-md row-span-1 p-4"
               onClick={() => {
-                const newValue = prompt(
-                  "Enter new text for Part 1",
-                  gridContent.part1
-                );
-                if (newValue) handleInputChange("part1", newValue);
+                const newValue = prompt('Enter new text for Part 1', gridContent.part1);
+                if (newValue) handleInputChange('part1', newValue);
               }}
             >
               <h1>{gridContent.part1}</h1>
@@ -71,11 +67,8 @@ export default function BentoGridPage() {
             <div
               className="col-span-2 row-span-1 text-black text-2xl border-2 rounded-md p-4"
               onClick={() => {
-                const newValue = prompt(
-                  "Enter new text for Part 2",
-                  gridContent.part2
-                );
-                if (newValue) handleInputChange("part2", newValue);
+                const newValue = prompt('Enter new text for Part 2', gridContent.part2);
+                if (newValue) handleInputChange('part2', newValue);
               }}
             >
               <h1>{gridContent.part2}</h1>
@@ -85,11 +78,8 @@ export default function BentoGridPage() {
             <div className="col-span-1 row-span-3 text-black text-2xl border-2 rounded-md p-4">
               <h1
                 onClick={() => {
-                  const newValue = prompt(
-                    "Enter new text for Part 3",
-                    gridContent.part3
-                  );
-                  if (newValue) handleInputChange("part3", newValue);
+                  const newValue = prompt('Enter new text for Part 3', gridContent.part3);
+                  if (newValue) handleInputChange('part3', newValue);
                 }}
               >
                 {gridContent.part3}
@@ -97,11 +87,8 @@ export default function BentoGridPage() {
               <p
                 className="text-sm"
                 onClick={() => {
-                  const newValue = prompt(
-                    "Enter new text for Project 1",
-                    gridContent.project1
-                  );
-                  if (newValue) handleInputChange("project1", newValue);
+                  const newValue = prompt('Enter new text for Project 1', gridContent.project1);
+                  if (newValue) handleInputChange('project1', newValue);
                 }}
               >
                 {gridContent.project1}
@@ -109,27 +96,26 @@ export default function BentoGridPage() {
               <p
                 className="text-sm"
                 onClick={() => {
-                  const newValue = prompt(
-                    "Enter new text for Project 2",
-                    gridContent.project2
-                  );
-                  if (newValue) handleInputChange("project2", newValue);
+                  const newValue = prompt('Enter new text for Project 2', gridContent.project2);
+                  if (newValue) handleInputChange('project2', newValue);
                 }}
               >
                 {gridContent.project2}
               </p>
             </div>
             <div>
-        <button className=" bg-green-700 rounded-xl text-4xl" onClick={()=>{
-          handelsave()
-        }}>Save</button>
-      </div>
+              <button
+                className=" bg-green-700 rounded-xl text-4xl"
+                onClick={() => {
+                  handelsave();
+                }}
+              >
+                Save
+              </button>
+            </div>
           </div>
-      
         </div>
-
       )}
-      
     </>
   );
 }

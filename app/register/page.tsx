@@ -1,55 +1,47 @@
-"use client"
-import { useState } from "react";
-import { toast } from "sonner";
+'use client';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Register() {
   const [details, setDetails] = useState({
-    name: "",
-    email: "",
-    password: "",
+    name: '',
+    email: '',
+    password: '',
   });
-  const [otp, setOtp] = useState(
-     ""
-  );
-  const [open,setopen]=useState<boolean>(false)
+  const [otp, setOtp] = useState('');
+  const [open, setopen] = useState<boolean>(false);
 
-  const handleRegister =async () => {
-  try{
-    const data=await fetch('/api/register', {
-      method: 'POST',
-      body: JSON.stringify(details),
-    })
-    setopen(true)
-    console.log(data)
+  const handleRegister = async () => {
+    try {
+      const data = await fetch('/api/register', {
+        method: 'POST',
+        body: JSON.stringify(details),
+      });
+      setopen(true);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  }
-  catch (error){
-    
-    console.log(error)
+  const otpVerify = async () => {
+    try {
+      const data = await fetch('/api/register', {
+        method: 'PUT',
+        body: JSON.stringify({
+          email: details.email,
+          verificationCode: otp,
+        }),
+      });
+      console.log(data);
+      toast.success('Otp Verified');
+      setopen(true);
+    } catch (error) {
+      toast.error('Otp Not Verified');
 
-  }
-
-}
-
-const otpVerify= async ()=>{
-  try{
-    const data=await fetch('/api/register', {
-      method: 'PUT',
-      body: JSON.stringify({
-        email:details.email,verificationCode:otp}),
-    })
-    console.log(data)
-    toast.success("Otp Verified")
-    setopen(true)
-
-  }
-  catch (error){
-    toast.error("Otp Not Verified")
-    
-    console.log(error)
-
-  }
-}
+      console.log(error);
+    }
+  };
 
   return (
     <div className=" h-screen  p-8 flex justify-center items-center border-l-4 border-black">
@@ -62,7 +54,7 @@ const otpVerify= async ()=>{
           <input
             type="text"
             value={details.name}
-            onChange={(e) => setDetails({ ...details, name: e.target.value })}
+            onChange={e => setDetails({ ...details, name: e.target.value })}
             className="w-full border-2 border-black px-2 py-1 rounded"
           />
         </div>
@@ -73,7 +65,7 @@ const otpVerify= async ()=>{
           <input
             type="email"
             value={details.email}
-            onChange={(e) => setDetails({ ...details, email: e.target.value })}
+            onChange={e => setDetails({ ...details, email: e.target.value })}
             className="w-full border-2 border-black px-2 py-1 rounded"
           />
         </div>
@@ -84,35 +76,32 @@ const otpVerify= async ()=>{
           <input
             type="password"
             value={details.password}
-            onChange={(e) => setDetails({ ...details, password: e.target.value })}
+            onChange={e => setDetails({ ...details, password: e.target.value })}
             className="w-full border-2 border-black px-2 py-1 rounded"
           />
         </div>
 
-        { open ?(
+        {open ? (
           <input
-          type="number"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          className="w-full border-2 border-black px-2 py-1 rounded"
-        />
-        ):null
-
-        }
+            type="number"
+            value={otp}
+            onChange={e => setOtp(e.target.value)}
+            className="w-full border-2 border-black px-2 py-1 rounded"
+          />
+        ) : null}
 
         {/* Register Button */}
         <button
-          onClick={()=>{
-            if(!open){
-            handleRegister()
-            }else{
-              otpVerify()
+          onClick={() => {
+            if (!open) {
+              handleRegister();
+            } else {
+              otpVerify();
             }
           }}
           className="w-full bg-yellow-400 border-2 border-black text-lg font-semibold py-2 rounded hover:bg-yellow-300 transition"
         >
-         { open ?  
-         "Verfy": "Register"}
+          {open ? 'Verfy' : 'Register'}
         </button>
 
         {/* Login Link */}
